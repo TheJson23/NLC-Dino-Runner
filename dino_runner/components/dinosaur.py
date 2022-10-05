@@ -1,7 +1,6 @@
 import pygame
-
-from dino_runner.utils.constants import RUNNING
 from pygame.sprite import Sprite
+from dino_runner.utils.constants import RUNNING
 from dino_runner.utils.constants import JUMPING
 
 class Dinosaur(Sprite):
@@ -24,7 +23,6 @@ class Dinosaur(Sprite):
             self.run()
         elif self.dino_jum:
             self.jump()
-        
         
         if user_imput[pygame.K_UP] and self.dino_jum:
             self.dino_jum = True
