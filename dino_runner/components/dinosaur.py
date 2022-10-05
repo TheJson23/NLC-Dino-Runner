@@ -24,7 +24,7 @@ class Dinosaur(Sprite):
         elif self.dino_jum:
             self.jump()
         
-        if user_imput[pygame.K_UP] and self.dino_jum:
+        if user_imput[pygame.K_w] and self.dino_jum:
             self.dino_jum = True
             self.dino_run = False
         elif not self.dino_jum:
@@ -42,7 +42,12 @@ class Dinosaur(Sprite):
             self.jump_vel -= 8
         if self.jump_vel < -self.JUMP_VEL:
             self.dino_rect.y = self.Y_POS
+            self.dino_jum = False
             self.jum_vel = self.JUMP_VEL
+
+    def crouch_down(self):
+        pass
+
         
     def run(self):
         self.image = RUNNING[0] if  self.step_index < 5 else RUNNING[1]
