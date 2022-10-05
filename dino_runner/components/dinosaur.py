@@ -72,6 +72,10 @@ class Dinosaur(Sprite):
         self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS 
         self.step_index += 1
+    
+    def dance(self):
+        self.imagen = JUMPING
+
 
     def draw(self,screen:pygame.Surface):
         screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
