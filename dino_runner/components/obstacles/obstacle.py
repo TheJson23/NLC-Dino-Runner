@@ -1,5 +1,5 @@
-from ast import Pass
 from pygame.sprite import Sprite
+import random
 
 from dino_runner.utils.constants import SCREEN_WIDTH
 

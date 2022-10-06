@@ -1,7 +1,7 @@
 import pygame
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManger
-
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+import random
+from dino_runner.utils.constants     import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 from dino_runner.components.dinosaur import Dinosaur
 
 class Game:
@@ -17,15 +17,30 @@ class Game:
         self.game_speed = 20
         self.x_pos_bg = 0
         self.y_pos_bg = 380
+        self.random = random.randint(0,1)
+
+        self.point = 0
+        self.death_count = 0
+    
+    def execute(self):
+        self.runnig = True
+        while self.runnig:
+            if not self.playing:
+                self.show_menu()
+            
+        pygame.QUIT
+        
+
 
     def run(self):
         # Game loop: events - update - draw
+        #self.obstacle_manager.reset_obstacles()
         self.playing = True
         while self.playing:
             self.events()
             self.update()
             self.draw()
-        pygame.quit()
+        
 
     def events(self):
         for event in pygame.event.get():
@@ -35,7 +50,7 @@ class Game:
     def update(self):
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
-        self.obstacle_manager.update(self)
+        self.obstacle_manager.update(self,self.random)
         #
 
     def draw(self):
@@ -56,3 +71,18 @@ class Game:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
+
+    #def show_menu(self):
+        #self.screen.fill((255,255,255))
+        #half_screen_height =  SCREEN_HEIGHT // 2
+        #half_screen_widht  = SCREEN_WIDTH // 2
+
+        #if self.death_count == 0:
+            #font = pygame.font.Font("arial",30)
+            #text = font.render("Prees any key star",True,(0,0,0))
+            #text_rect = text.get_rect()
+            #text_rect.center = (half_screen_widht,half_screen_height)
+            #self.screen.blit(text,text_rect)
+        #self.screen
+        
+
