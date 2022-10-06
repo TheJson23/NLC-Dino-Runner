@@ -17,7 +17,7 @@ class Game:
         self.game_speed = 20
         self.x_pos_bg = 0
         self.y_pos_bg = 380
-        self.random = random.randint(0,1)
+        
 
         self.point = 0
         self.death_count = 0
@@ -50,7 +50,8 @@ class Game:
     def update(self):
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
-        self.obstacle_manager.update(self,self.random)
+        
+        self.obstacle_manager.update(self)
         #
 
     def draw(self):
