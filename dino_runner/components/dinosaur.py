@@ -1,7 +1,7 @@
 from asyncio import events
 import pygame
 from pygame.sprite import Sprite
-from dino_runner.utils.constants import RUNNING,JUMPING,DUCKING
+from dino_runner.utils.constants import RUNNING,JUMPING,DUCKING,DEATH
 from dino_runner.utils.constants import DUCKING_SHIELD,RUNNING_SHIELD,JUMPING_SHIELD,DEFAULT_TYPE,SHIELD_TYPE
 
 DUCK_IMG = {DEFAULT_TYPE :  DUCKING,  SHIELD_TYPE : DUCKING_SHIELD}
@@ -24,6 +24,7 @@ class Dinosaur(Sprite):
         self.dino_jum       = False
         self.dino_duck      = False
         self.jump_vel       = self.JUMP_VEL
+        self.dino_death     = False
         self.setup_states()
 
     def setup_states(self):
@@ -39,6 +40,8 @@ class Dinosaur(Sprite):
             self.jump()
         elif self.dino_duck:
             self.duck()
+        elif self.dino_death:
+            self.death()
     
     def update(self,user_imput):
         
@@ -89,6 +92,8 @@ class Dinosaur(Sprite):
     
     def dance(self):
         self.imagen = JUMPING
+    
+    
 
 
     def draw(self,screen:pygame.Surface):
@@ -96,3 +101,7 @@ class Dinosaur(Sprite):
     
     def check_invicibility(self):
         pass
+    def death(self):
+        self.image = DEATH
+    
+

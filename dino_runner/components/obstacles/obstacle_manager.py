@@ -25,12 +25,18 @@ class ObstacleManger:
                 
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed,self.obstacles)
-            if game.player.dino_rect.colliderect(obstacle.rect):
-                pygame.time.delay(1000)
-                game.playing      = False
-                game.death_count += 1
-                if game.record <= game.point:
-                    game.record += game.point
+            if  game.player.dino_rect.colliderect(obstacle.rect):
+                if not game.player.shield:
+                    game.player.dino_death = True
+                    pygame.time.delay(500)
+                    game.playing      = False
+                    game.death_count += 1
+                    if game.record <= game.point:
+                        game.record += game.point
+                else:
+                    self.obstacles.remove(obstacle)
+            break
+                
          
             
         
