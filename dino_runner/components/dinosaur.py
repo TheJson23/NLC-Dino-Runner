@@ -1,4 +1,4 @@
-from asyncio import events
+from asyncio import events, shield
 import pygame
 from pygame.sprite import Sprite
 from dino_runner.utils.constants import RUNNING,JUMPING,DUCKING,DEATH
@@ -93,14 +93,21 @@ class Dinosaur(Sprite):
     def dance(self):
         self.imagen = JUMPING
     
-    
-
-
     def draw(self,screen:pygame.Surface):
         screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
     
-    def check_invicibility(self):
-        pass
+    def check_invicibility(self,screen):
+        if self.shield:
+            time_show = round((self.shield_time_up - pygame.time.get_ticks()) / 100, 2)
+            if time_show >= 0 and self.show_text:
+                print(time_show)
+            else:
+                self.shield == False
+                self.type = DEFAULT_TYPE
+
+
+        
+    
     def death(self):
         self.image = DEATH
     
