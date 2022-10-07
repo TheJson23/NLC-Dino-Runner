@@ -20,7 +20,7 @@ class Game:
         self.y_pos_bg = 380
         self.point = 0
         self.death_count = 0
-        self.user_input = 0
+        
     
     def execute(self):
         self.runnig = True
@@ -45,12 +45,12 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
-        pygame.display.quit()
-        pygame.QUIT
+        
 
     def update(self):
-        self.user_input = pygame.key.get_pressed()
-        self.player.update(self.user_input)
+        self.update_score()
+        user_input = pygame.key.get_pressed()
+        self.player.update(user_input)
         self.obstacle_manager.update(self)
         #
     def update_score(self):
@@ -91,7 +91,7 @@ class Game:
             if event.type == pygame.QUIT:
                 self.player = False
                 self.runnig = False
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 self.run()
 
     def show_menu(self):

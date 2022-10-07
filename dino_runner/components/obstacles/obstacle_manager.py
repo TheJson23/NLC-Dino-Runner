@@ -30,8 +30,7 @@ class ObstacleManger:
                 pygame.time.delay(1000)
                 game.playing = False
                 game.death_count += 1
-            else:
-                self.obstacles.remove(obstacle)
+            
         
     def draw(self,screen):
         for obstacle in self.obstacles:

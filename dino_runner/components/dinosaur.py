@@ -14,7 +14,7 @@ class Dinosaur(Sprite):
     JUMP_VEL =   8.5
     
     def __init__(self):
-        self.type           =DEFAULT_TYPE
+        self.type           = DEFAULT_TYPE
         self.image          = RUN_IMG[self.type][0]
         self.dino_rect      = self.image.get_rect()
         self.dino_rect.x    = self.X_POS
@@ -47,7 +47,7 @@ class Dinosaur(Sprite):
         
         self.events()
         
-        if user_imput[pygame.K_UP ] or user_imput[pygame.K_SPACE] and not self.dino_jum:
+        if user_imput[pygame.K_UP ]  and not self.dino_jum:
             self.dino_jum  = True
             self.dino_run  = False
         elif not self.dino_jum:
