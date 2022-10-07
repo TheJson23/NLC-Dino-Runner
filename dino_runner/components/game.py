@@ -67,16 +67,26 @@ class Game:
 
     def draw_score(self):
         font = pygame.font.Font(FONT_STYLE,30)
-        text = font.render(f"Points{self.point}",True,(0,0,0))
+        text = font.render(f"Points: {self.point}",True,(0,0,0))
         text_rect = text.get_rect()
         text_rect.center = (100, 50)
         self.screen.blit(text,text_rect)
+    
+    def draw_death(self):
+        font = pygame.font.Font(FONT_STYLE,30)
+        text = font.render(f"Death: {self.death_count}",True,(0,0,0))
+        text_rect = text.get_rect()
+        text_rect.center = (1000, 50)
+        self.screen.blit(text,text_rect)
+        
+
         
     def draw(self):
         self.clock.tick(FPS)
         self.screen.fill((255, 255, 255))
         self.draw_background()
         self.draw_score()
+        self.draw_death()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
@@ -95,7 +105,6 @@ class Game:
     
     def handle_key_events_on_menu(self):
         for event in pygame.event.get():
-            print(event)
             if event.type == pygame.QUIT:
                 self.player = False
                 self.runnig = False
