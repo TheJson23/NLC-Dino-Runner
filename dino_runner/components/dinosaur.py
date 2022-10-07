@@ -6,7 +6,7 @@ from dino_runner.utils.constants import DUCKING_SHIELD,RUNNING_SHIELD,JUMPING_SH
 
 DUCK_IMG = {DEFAULT_TYPE :  DUCKING,  SHIELD_TYPE : DUCKING_SHIELD}
 JUMP_IMG = {DEFAULT_TYPE :  JUMPING,  SHIELD_TYPE : JUMPING_SHIELD}
-RUN_IMG  = {DEFAULT_TYPE :   RUNNING, SHIELD_TYPE : RUNNING_SHIELD}
+RUN_IMG  = {DEFAULT_TYPE :  RUNNING,  SHIELD_TYPE : RUNNING_SHIELD}
 
 class Dinosaur(Sprite):
     X_POS    =  80
@@ -27,9 +27,9 @@ class Dinosaur(Sprite):
         self.setup_states()
 
     def setup_states(self):
-        self.has_power_up = False
-        self.shield = False
-        self.show_text = False
+        self.has_power_up   = False
+        self.shield         = False
+        self.show_text      = False
         self.shield_time_up = 0
     
     def events(self):
@@ -39,9 +39,6 @@ class Dinosaur(Sprite):
             self.jump()
         elif self.dino_duck:
             self.duck()
-
-
-
     
     def update(self,user_imput):
         
@@ -65,26 +62,26 @@ class Dinosaur(Sprite):
             self.step_index = 0
     
     def jump(self):
-        self.image = JUMPING
+        self.image = JUMP_IMG[self.type]
         
         if  self.dino_jum:
             self.dino_rect.y -= self.jump_vel * 4
-            self.jump_vel -= 0.8
+            self.jump_vel    -= 0.8
           
         if self.jump_vel < -self.JUMP_VEL:
             self.dino_rect.y = self.Y_POS
-            self.dino_jum = False
-            self.jump_vel = self.JUMP_VEL
+            self.dino_jum    = False
+            self.jump_vel    = self.JUMP_VEL
         
     def duck(self):
-        self.image = DUCK_IMG[self.type][self.step_index // 5]
+        self.image       = DUCK_IMG[self.type][self.step_index // 5]
         self.dino_rect   = self.image.get_rect()
         self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS + 30
         self.step_index += 1
         
     def run(self):
-        self.image = RUN_IMG[self.type][self.step_index // 5]
+        self.image       = RUN_IMG[self.type][self.step_index // 5]
         self.dino_rect   = self.image.get_rect()
         self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS 

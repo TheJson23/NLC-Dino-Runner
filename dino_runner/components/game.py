@@ -1,6 +1,6 @@
 import pygame
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManger
-from dino_runner.utils.constants     import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.utils.constants     import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS,GAME_OVER,RESET
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
 FONT_STYLE = "freesansbold.ttf"
@@ -22,6 +22,7 @@ class Game:
         self.y_pos_bg         = 380
         self.point            = 0
         self.death_count      = 0
+        self.record           = 0
         
     
     def execute(self):
@@ -40,6 +41,7 @@ class Game:
         self.playing    = True
         self.game_speed = 20
         self.point      = 0
+        
 
         while self.playing:
             self.events()
@@ -72,6 +74,14 @@ class Game:
         text_rect.center = (100, 50)
         self.screen.blit(text,text_rect)
     
+    def record_point(self):
+        font = pygame.font.Font(FONT_STYLE,30)
+        text = font.render(f"Record: {self.record}",True,(0,0,0))
+        text_rect = text.get_rect()
+        text_rect.center = (350,50)
+        self.screen.blit(text,text_rect)
+        
+    
     def draw_death(self):
         font = pygame.font.Font(FONT_STYLE,30)
         text = font.render(f"Death: {self.death_count}",True,(0,0,0))
@@ -87,6 +97,7 @@ class Game:
         self.draw_background()
         self.draw_score()
         self.draw_death()
+        self.record_point()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
@@ -122,11 +133,14 @@ class Game:
             text_rect = text.get_rect()
             text_rect.center = (half_screen_widht,half_screen_height)
             self.screen.blit(text,text_rect)
+            self.screen.blit(RUNNING[0],(half_screen_widht -10,half_screen_height-120))
+        
         elif self.death_count >0 :
-            pass
+            self.screen.blit(GAME_OVER,(half_screen_widht-200 ,half_screen_height))
         
-        self.screen.blit(RUNNING[0],(half_screen_widht -10,half_screen_height-120))
-        
+            self.screen.blit(RESET,(half_screen_widht-100 ,half_screen_height-100))
         pygame.display.update()
         self.handle_key_events_on_menu()
+
+    
 
