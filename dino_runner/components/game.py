@@ -36,6 +36,8 @@ class Game:
         #Game loop: events - update - draw
         self.obstacle_manager.reset_obstacles()
         self.playing = True
+
+
         while self.playing:
             self.events()
             self.update()
@@ -50,7 +52,7 @@ class Game:
         pygame.QUIT
 
     def update(self):
-        self.update_score()
+        #self.update_score()
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
         
@@ -92,7 +94,7 @@ class Game:
     
     def handle_key_events_on_menu(self):
         for event in pygame.event.get():
-            if event == pygame.QUIT:
+            if event.type == pygame.QUIT:
                 self.player = False
                 self.runnig = False
             if event.type == pygame.KEYDOWN:
@@ -102,11 +104,11 @@ class Game:
     def show_menu(self):
         self.screen.fill((255,255,255))
         half_screen_height =  SCREEN_HEIGHT // 2
-        half_screen_widht  = SCREEN_WIDTH // 2
+        half_screen_widht  =  SCREEN_WIDTH   // 2
 
         if self.death_count == 0:
-            font = pygame.font.Font(FONT_STYLE,30)
-            text = font.render("Prees any key star",True,(0,0,0))
+            font = pygame.font.Font(FONT_STYLE, 30)
+            text = font.render("Prees any key star", True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = (half_screen_widht,half_screen_height)
             self.screen.blit(text,text_rect)
