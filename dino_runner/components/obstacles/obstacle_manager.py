@@ -25,7 +25,7 @@ class ObstacleManger:
                 
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed,self.obstacles)
-            if  game.player.dino_rect.colliderect(obstacle.rect):
+            if game.player.dino_rect.colliderect(obstacle.rect):
                 if not game.player.shield:
                     game.player.dino_death = True
                     pygame.time.delay(500)
@@ -35,6 +35,9 @@ class ObstacleManger:
                         game.record += game.point
                 else:
                     self.obstacles.remove(obstacle)
+            if game.hammer.rect.colliderect(obstacle.rect):
+                #self.obstacles.remove(obstacle)
+                print("Entro a colicionar")
             break
                 
          

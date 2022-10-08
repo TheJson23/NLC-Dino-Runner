@@ -1,12 +1,14 @@
-from asyncio import events, shield
+
 import pygame
+
 from pygame.sprite import Sprite
-from dino_runner.utils.constants import RUNNING,JUMPING,DUCKING,DEATH
+from dino_runner.utils.constants import RUNNING,JUMPING,DUCKING,DEATH,HAMMER_TYPE,RUNNING_HAMMER,JUMPING_HAMMER,DUCKING_HAMMER
 from dino_runner.utils.constants import DUCKING_SHIELD,RUNNING_SHIELD,JUMPING_SHIELD,DEFAULT_TYPE,SHIELD_TYPE
 
-DUCK_IMG = {DEFAULT_TYPE :  DUCKING,  SHIELD_TYPE : DUCKING_SHIELD}
-JUMP_IMG = {DEFAULT_TYPE :  JUMPING,  SHIELD_TYPE : JUMPING_SHIELD}
-RUN_IMG  = {DEFAULT_TYPE :  RUNNING,  SHIELD_TYPE : RUNNING_SHIELD}
+DUCK_IMG = {DEFAULT_TYPE :  DUCKING,  SHIELD_TYPE : DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
+JUMP_IMG = {DEFAULT_TYPE :  JUMPING,  SHIELD_TYPE : JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
+RUN_IMG  = {DEFAULT_TYPE :  RUNNING,  SHIELD_TYPE : RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
+
 
 class Dinosaur(Sprite):
     X_POS    =  80
@@ -25,6 +27,7 @@ class Dinosaur(Sprite):
         self.dino_duck      = False
         self.jump_vel       = self.JUMP_VEL
         self.dino_death     = False
+        self.hammer_power   = False
         self.setup_states()
 
     def setup_states(self):
@@ -42,6 +45,9 @@ class Dinosaur(Sprite):
             self.duck()
         elif self.dino_death:
             self.death()
+
+        if self.hammer_power:
+            self.throw_hammer()
     
     def update(self,user_imput):
         
@@ -60,9 +66,13 @@ class Dinosaur(Sprite):
         elif not self.dino_duck:
             self.dino_duck = False
             self.dino_run  = True
-
+        
+        elif self.type == "hammer" and user_imput[pygame.K_b]:
+            self.hammer_power = True
+            
         if self.step_index >= 10:
             self.step_index = 0
+        
     
     def jump(self):
         self.image = JUMP_IMG[self.type]
@@ -94,18 +104,24 @@ class Dinosaur(Sprite):
         self.imagen = JUMPING
     
     def draw(self,screen:pygame.Surface):
-        screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
+        screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))            
     
     def check_invicibility(self,screen):
         if self.shield == True:
             time_to_show = round((self.shield_time_up - pygame.time.get_ticks()) / 100, 2)
             if time_to_show >= 0 and self.show_text:
-                print(time_to_show)
+               self.show_text
             else:
-                self.shield == False
+                self.has_power_up   = False
+                self.shield         = False
+                self.show_text      = False
                 self.type    = DEFAULT_TYPE
 
     def death(self):
         self.image = DEATH
     
+    def throw_hammer(self):
+        self.type           = DEFAULT_TYPE
+        self.image          = RUN_IMG[self.type][0]
+        #self.hammer_power = False
 

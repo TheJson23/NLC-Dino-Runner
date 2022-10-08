@@ -2,6 +2,7 @@ import pygame
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManger
 from dino_runner.utils.constants     import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS,GAME_OVER,RESET
 from dino_runner.components.dinosaur import Dinosaur
+from dino_runner.components.power_ups.hammer import Hammer
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
 FONT_STYLE = "freesansbold.ttf"
 
@@ -13,6 +14,7 @@ class Game:
         self.screen           = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock            = pygame.time.Clock()
         self.player           = Dinosaur()
+        self.hammer          = Hammer().set_pos(self.player.dino_rect)
         self.obstacle_manager = ObstacleManger()
         self.power_up_manager = PowerUpManager()
         self.playing          = False
@@ -102,6 +104,10 @@ class Game:
         self.player.check_invicibility(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
+
+        if self.player.hammer_power == True:
+            self.hammer.move_hammer(self.screen)
+
         pygame.display.update()
         pygame.display.flip()
 
