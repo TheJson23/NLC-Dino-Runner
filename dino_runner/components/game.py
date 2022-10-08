@@ -134,12 +134,12 @@ class Game:
             text_rect = text.get_rect()
             text_rect.center = (half_screen_widht,half_screen_height)
             self.screen.blit(text,text_rect)
-            self.screen.blit(RUNNING[0],(half_screen_widht -10,half_screen_height-120))
+            self.screen.blit(RUNNING[0],(half_screen_widht -30,half_screen_height-120))
         
         elif self.death_count >0 :
             self.screen.blit(GAME_OVER,(half_screen_widht-200 ,half_screen_height))
         
-            self.screen.blit(RESET,(half_screen_widht-100 ,half_screen_height-100))
+            self.screen.blit(RESET,(half_screen_widht-60 ,half_screen_height-100))
         pygame.display.update()
         self.handle_key_events_on_menu()
 
