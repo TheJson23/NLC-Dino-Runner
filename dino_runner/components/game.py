@@ -14,7 +14,7 @@ class Game:
         self.screen           = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock            = pygame.time.Clock()
         self.player           = Dinosaur()
-        self.hammer          = Hammer().set_pos(self.player.dino_rect)
+        self.hammer           = Hammer().set_pos(self.player.dino_rect)
         self.obstacle_manager = ObstacleManger()
         self.power_up_manager = PowerUpManager()
         self.playing          = False

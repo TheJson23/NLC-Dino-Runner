@@ -18,7 +18,7 @@ class PowerUpManager:
                 self.when_appears = random.randint(self.when_appears * 200,self.when_appears * 300)
                 self.radom_power = random.randint(0,1)
                 if self.radom_power == 0:
-                    self.power_ups.append(Hammer())
+                    self.power_ups.append(Shield())
                 else:
                     self.power_ups.append(Hammer())
     

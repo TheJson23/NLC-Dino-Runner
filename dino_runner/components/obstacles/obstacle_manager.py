@@ -35,9 +35,10 @@ class ObstacleManger:
                         game.record += game.point
                 else:
                     self.obstacles.remove(obstacle)
-            if game.hammer.rect.colliderect(obstacle.rect):
-                #self.obstacles.remove(obstacle)
-                print("Entro a colicionar")
+            if game.hammer.rect.colliderect(obstacle.rect) and game.player.hammer_power:
+                self.obstacles.remove(obstacle)
+                if game.hammer.rect.x >= 1100:
+                    game.player.hammer_power = False
             break
                 
          

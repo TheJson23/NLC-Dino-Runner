@@ -110,12 +110,16 @@ class Dinosaur(Sprite):
         if self.shield == True:
             time_to_show = round((self.shield_time_up - pygame.time.get_ticks()) / 100, 2)
             if time_to_show >= 0 and self.show_text:
-               self.show_text
+                font = pygame.font.Font("freesansbold.ttf",30)
+                text = font.render(f"power: {time_to_show}",True,(0,0,0))
+                text_rect = text.get_rect()
+                text_rect.center = (600, 50)
+                screen.blit(text,text_rect)
             else:
                 self.has_power_up   = False
                 self.shield         = False
                 self.show_text      = False
-                self.type    = DEFAULT_TYPE
+                self.type           = DEFAULT_TYPE
 
     def death(self):
         self.image = DEATH
